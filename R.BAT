@@ -1,2 +1,2 @@
-java -cp ; starter
+appletviewer FirstApplet.html
 pause
