@@ -19,6 +19,7 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 	private double speedtt;// player2 not AI with AWSD keys
 	private double accel, ballSX, ballSY;
 	private boolean done;
+//	private FilledRoundedRect pausebutton = new FilledRoundedRect(double x, double y, double width, double height, double arcWidth, double arcHeight, DrawingCanvas canvas)
 	//   add private objects    ->     paddle1   and paddle2    and  ball
 	
 	// no ball yet   --> its easy
@@ -119,32 +120,32 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 	public void mouseReleased( MouseEvent e ) { }
 	public void mouseDragged( MouseEvent e ) { }
 	
-	public void checkBall(){
-		if (ball.contains(paddle1)) {      //  COPY IF STATEMENT FOR ALL BOUNDARIES AND OBJECTS!
-			ballSX = - ballSX * 1.3;   //  1.3 is the accelorator value
+//	public static void checkBall(){
+	//	if (ball.contains(paddle1)) {      //  COPY IF STATEMENT FOR ALL BOUNDARIES AND OBJECTS!
+	//		ballSY = - ballSY * 1.3;   //  1.3 is the accelorator value
 			
-		}
-	}
-	public void ballSpeed(){
-		ballSX = ballSX * .99;
-		ballSY = ballSY * .99;  //  .99 is the decelorator value
-	}
+//		}
+	//}
+	// public static void ballSpeed(){
+		// ballSX = ballSX * .98;
+		// ballSY = ballSY * .98;  //  .98 is the decelorator value
+	// }
 	
-	public static double follow(double aiX, double playerX,double maxSpeed, double speedt, double accel)
-	{
+	// public static double follow(double aiX, double playerX,double maxSpeed, double speedt, double accel)
+	// {
 		
-		speedt= speedt * .7;
-		if (speedt >= maxSpeed) speedt = maxSpeed;
-		else if(aiX > playerX)speedt=speedt-accel;
-		else if(aiX < playerX)speedt=speedt+accel;
-		return speedt;
-	}
-	public static double momentum(double maxSpeed, double speed)
-	{
-		speed= (speed)* .7;
-		if (speed >= maxSpeed) speed = maxSpeed;
-		return speed;
-	}
+		// speedt= speedt * .7;
+		// if (speedt >= maxSpeed) speedt = maxSpeed;
+		// else if(aiX > playerX)speedt=speedt-accel;
+		// else if(aiX < playerX)speedt=speedt+accel;
+		// return speedt;
+	// }
+	// public static double momentum(double maxSpeed, double speed)
+	// {
+		// speed= (speed)* .7;
+		// if (speed >= maxSpeed) speed = maxSpeed;
+		// return speed;
+	// }
 	
 	public void mouseMoved( MouseEvent e ) {
 		// only process every 5th mouse event
