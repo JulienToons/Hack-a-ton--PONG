@@ -13,13 +13,16 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 	int skip = 0;
 	//
 	//edit private vareables form here
-	private boolean pause;
+	private boolean pause, restart;
 	private String key;
 	private double speedt; //player speed with -> and <-
 	private double speedtt;// player2 not AI with AWSD keys
 	private double accel, ballSX, ballSY;
 	private boolean done;
-//	private FilledRoundedRect pausebutton = new FilledRoundedRect(double x, double y, double width, double height, double arcWidth, double arcHeight, DrawingCanvas canvas)
+	private FramedRoundedRect pausebutton = new FilledRoundedRect(50, 50, 30, 20,10, 7.5, canvas);
+	//private FilledRoundedRect pausebutton1 = new FilledRoundedRect(50, 50, 24, 16,6, 4, canvas);
+	private Text pauseM;
+	
 	//   add private objects    ->     paddle1   and paddle2    and  ball
 	
 	// no ball yet   --> its easy
@@ -28,16 +31,22 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 		for ( int i = 0; i < N; ++i ) { spectrum[i] = new Color( Color.HSBtoRGB(i/(float)N,1,1) ); }
 		listOfPositions = new Vector(); addKeyListener( this ); addMouseListener( this ); addMouseMotionListener( this );
 	}
-	
+// by team shhh
 	public void begin(){
+		pausebutton.setColor(Color.green);
+		pauseM = new Text("||", 49,50, canvas);
+		pauseM.setColor(Color.green);
+		pauseM.hide();
+		pausebutton.hide();
 		ballSX = 0;
 		ballSX = 0;
 		pause = false;
 		key = " ";
+		restart = false;
 		accel = 1.5;
 		speedt = 0;
 		speedtt = 0;
-	         ///  add pause button and mouse clicking in it   .contains()
+//  add pause button and mouse clicking in it   .contains()
 		
 		boolean twoP = false;
 		//
@@ -45,19 +54,20 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 		//   sendToFront()      setSize(double width, double height) 
 		done = false;  
 		while(done == false)  // enter names at start
-		{                                
-			while( pause == false)
-			{ 
-				if (twoP == false) //  AI
-				{
+		{   while (restart == false){                        
+				while( pause == false)
+				{ 
+					if (twoP == false) //  AI
+					{
 					
-				}
-				if (twoP == true) // 2player
-				{
+					}
+					if (twoP == true) // 2player
+					{
 					
-				}
-				//hhyhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+					}
+				}	//hhyhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 			}
+			restart = false;
 		}
 	}
 	public void keyPressed( KeyEvent e ) { 
@@ -84,10 +94,19 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
             //e  key code
 			done = true;
 		} else if (e.getKeyCode() == KeyEvent.VK_P ) {
-			if ( pause == false) pause = true;
-			else pause = false;
+			if ( pause == false){
+				pause = true;
+				pauseM.show();
+				pausebutton.show();
+			}
+			else {
+				pause = false;
+				pauseM.hide();
+				pausebutton.hide();
+			}
 		} else if (e.getKeyCode() == KeyEvent.VK_R ) {
-			// restart                                          //  addd restart function   and set ballSX to random
+			restart = true;    
+                                      //  addd restart function   and set ballSX to random
 			//                                                                            as well as reset pos
 		}
 	}  
@@ -105,10 +124,14 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 	}
 	public void mouseEntered( MouseEvent e ) {
 		pause = false;
+		pauseM.hide();
+		pausebutton.hide();
 		// show pause button
 	}
 	public void mouseExited( MouseEvent e ) {
 		pause = true;
+		pauseM.show();
+		pausebutton.show();
 		// hide pause button
 	}
 	public void mouseClicked( MouseEvent e ) {
@@ -133,7 +156,6 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 	
 	public static double follow(double aiX, double playerX,double maxSpeed, double speedt, double accel)
 	{
-		
 		speedt= speedt * .7;
 		if (speedt >= maxSpeed) speedt = maxSpeed;
 		else if(aiX > playerX)speedt=speedt-accel;
@@ -155,7 +177,6 @@ public class FirstApplet extends Applet implements KeyListener, MouseListener, M
 		} else skip = 5;
 		
 		if (listOfPositions.size() >= N) {
-//code made by Julien Owhadi
 			// delete the first element in the list
 			listOfPositions.removeElementAt( 0 );
 		}
